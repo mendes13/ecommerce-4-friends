@@ -14,7 +14,9 @@
 <%= for product <- @products do %>
     <tr>
       <td><%= product.title %></td>
-      <td><%= product.image %></td>
+      <td>
+        <img src="<%= Niflheim.ImageUploader.url({product.image, product}) %>"/>
+      </td>
       <td><%= product.price %></td>
 
       <td>

@@ -9,7 +9,7 @@
 
   <li>
     <strong>Image:</strong>
-    <%= @product.image %>
+    <img src="<%= Niflheim.ImageUploader.url({@product.image, @product}) %>"/>
   </li>
 
   <li>
