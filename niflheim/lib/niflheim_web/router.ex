@@ -17,6 +17,7 @@ defmodule NiflheimWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    resources "/products", ProductController
   end
 
   # Other scopes may use custom stacks.
