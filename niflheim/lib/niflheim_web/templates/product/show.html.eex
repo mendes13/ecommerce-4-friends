@@ -1,0 +1,24 @@
+<h1>Show Product</h1>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @product.title %>
+  </li>
+
+  <li>
+    <strong>Image:</strong>
+    <br />
+    <img class="show-image" src="<%= Niflheim.ImageUploader.url({@product.image, @product}) %>"/>
+  </li>
+
+  <li>
+    <strong>Price:</strong>
+    <%= @product.price %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.product_path(@conn, :edit, @product) %></span>
+<span><%= link "Back", to: Routes.product_path(@conn, :index) %></span>
