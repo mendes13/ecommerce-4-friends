@@ -20,6 +20,11 @@ defmodule NiflheimWeb.Router do
     resources "/products", ProductController
   end
 
+  scope "/api", NiflheimWeb.API, as: :api do
+    pipe_through :api
+    resources "/products", ProductController
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", NiflheimWeb do
   #   pipe_through :api

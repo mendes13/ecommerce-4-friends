@@ -15,9 +15,6 @@ defmodule NiflheimWeb.ProductController do
   end
 
   def create(conn, %{"product" => product_params}) do
-    # filename = save_file(product_params["image"])
-    # product_params = Map.put(product_params, "image", filename)
-
     case Products.create_product(product_params) do
       {:ok, product} ->
         conn
@@ -27,16 +24,6 @@ defmodule NiflheimWeb.ProductController do
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
-  end
-
-  defp save_file(nil) do
-    nil
-  end
-
-  defp save_file(file) do
-    filename = "#{:os.system_time(:millisecond)}-#{file.filename}" 
-    File.cp(file.path, "tmp/#{filename}")
-    filename
   end
 
   def show(conn, %{"id" => id}) do
@@ -53,8 +40,6 @@ defmodule NiflheimWeb.ProductController do
   def update(conn, %{"id" => id, "product" => product_params}) do
     product = Products.get_product!(id)
 
-    # product_params = update_product_image(product_params)
-
     case Products.update_product(product, product_params) do
       {:ok, product} ->
         conn
@@ -64,15 +49,6 @@ defmodule NiflheimWeb.ProductController do
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", product: product, changeset: changeset)
     end
-  end
-
-  defp update_product_image(%{"image" => image} = product_params) do
-    filename = save_file(image)
-    product_params = %{product_params | "image" => filename}
-  end
-
-  defp update_product_image(product_params) do
-    product_params
   end
 
   def delete(conn, %{"id" => id}) do
