@@ -20,3 +20,7 @@ config :niflheim, NiflheimWeb.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+ 
+# file upload using arc
+config :arc,
+  storage: Arc.Storage.Local

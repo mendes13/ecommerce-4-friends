@@ -3,8 +3,8 @@ defmodule NiflheimWeb.ProductControllerTest do
 
   alias Niflheim.Products
 
-  @create_attrs %{image: "some image", price: 42, title: "some title"}
-  @update_attrs %{image: "some updated image", price: 43, title: "some updated title"}
+  @create_attrs %{image: %Plug.Upload{path: "test/fixtures/example.jpeg", filename: "example.jpeg"}, price: 42, title: "some title"}
+  @update_attrs %{image: %Plug.Upload{path: "test/fixtures/update-example.jpeg", filename: "update-example.jpeg"}, price: 43, title: "some updated title"}
   @invalid_attrs %{image: nil, price: nil, title: nil}
 
   def fixture(:product) do
@@ -60,7 +60,7 @@ defmodule NiflheimWeb.ProductControllerTest do
       assert redirected_to(conn) == Routes.product_path(conn, :show, product)
 
       conn = get(conn, Routes.product_path(conn, :show, product))
-      assert html_response(conn, 200) =~ "some updated image"
+      assert html_response(conn, 200) =~ @update_attrs.image.filename
     end
 
     test "renders errors when data is invalid", %{conn: conn, product: product} do

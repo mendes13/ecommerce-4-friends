@@ -6,8 +6,8 @@ defmodule Niflheim.ProductsTest do
   describe "products" do
     alias Niflheim.Products.Product
 
-    @valid_attrs %{image: "some image", price: 42, title: "some title"}
-    @update_attrs %{image: "some updated image", price: 43, title: "some updated title"}
+    @valid_attrs %{image: %Plug.Upload{path: "test/fixtures/example.jpeg", filename: "example.jpeg"}, price: 42, title: "some title"}
+    @update_attrs %{image: %Plug.Upload{path: "test/fixtures/update-example.jpeg", filename: "update-example.jpeg"}, price: 43, title: "some updated title"}
     @invalid_attrs %{image: nil, price: nil, title: nil}
 
     def product_fixture(attrs \\ %{}) do
@@ -31,7 +31,7 @@ defmodule Niflheim.ProductsTest do
 
     test "create_product/1 with valid data creates a product" do
       assert {:ok, %Product{} = product} = Products.create_product(@valid_attrs)
-      assert product.image == "some image"
+      assert product.image.file_name == @valid_attrs.image.filename
       assert product.price == 42
       assert product.title == "some title"
     end
@@ -43,7 +43,7 @@ defmodule Niflheim.ProductsTest do
     test "update_product/2 with valid data updates the product" do
       product = product_fixture()
       assert {:ok, %Product{} = product} = Products.update_product(product, @update_attrs)
-      assert product.image == "some updated image"
+      assert product.image.file_name == @update_attrs.image.filename
       assert product.price == 43
       assert product.title == "some updated title"
     end
