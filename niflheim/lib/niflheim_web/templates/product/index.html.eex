@@ -15,7 +15,7 @@
     <tr>
       <td><%= product.title %></td>
       <td>
-        <img src="<%= Niflheim.ImageUploader.url({product.image, product}) %>"/>
+        <img class="table-image" src="<%= Niflheim.ImageUploader.url({product.image, product}) %>"/>
       </td>
       <td><%= product.price %></td>
 

@@ -9,7 +9,8 @@
 
   <li>
     <strong>Image:</strong>
-    <img src="<%= Niflheim.ImageUploader.url({@product.image, @product}) %>"/>
+    <br />
+    <img class="show-image" src="<%= Niflheim.ImageUploader.url({@product.image, @product}) %>"/>
   </li>
 
   <li>
