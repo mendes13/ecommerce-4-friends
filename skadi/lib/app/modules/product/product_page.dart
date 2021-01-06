@@ -38,11 +38,29 @@ class _ProductPageState extends ModularState<ProductPage, ProductController> {
           }
 
           return ListView.builder(
+            padding: EdgeInsets.all(8.0),
+            physics: BouncingScrollPhysics(),
             itemCount: controller.products.length,
             itemBuilder: (BuildContext _, int index) {
               final ProductModel product = controller.products[index];
               return Container(
-                child: Text(product.title),
+                child: Card(
+                  child: InkWell(
+                    onTap: () {
+                      // todo navigate to details?
+                    },
+                    child: Column(
+                      children: <Widget>[
+                        Image.network(product.image),
+                        SizedBox(height: 20.0),
+                        Text(product.title),
+                        SizedBox(height: 20.0),
+                        Text(product.formattedPrice()),
+                        SizedBox(height: 20.0),
+                      ],
+                    ),
+                  ),
+                ),
               );
             },
           );

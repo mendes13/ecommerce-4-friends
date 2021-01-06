@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class ProductModel {
   final int id;
   final String title;
@@ -21,4 +23,10 @@ class ProductModel {
         'image': image,
         'price': price,
       };
+
+  String formattedPrice() {
+    final NumberFormat numberFormat = NumberFormat('00.00');
+    final String formattedPrice = numberFormat.format(price / 100).toString();
+    return 'R\$ $formattedPrice';
+  }
 }
