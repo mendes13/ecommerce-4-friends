@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_modular/flutter_modular_test.dart';
@@ -41,11 +43,14 @@ void main() {
   });
 
   testWidgets('ProductPage has products', (WidgetTester tester) async {
+    HttpOverrides.global = null;
+
     when(repository.fetchProducts()).thenAnswer((_) async => <ProductModel>[
           ProductModel(
             id: 1,
             title: "Test product",
-            image: "test.png",
+            image:
+                "https://apartamento21.com.br/wp-content/uploads/2016/05/placeholder.png",
             price: 1000,
           ),
         ]);
