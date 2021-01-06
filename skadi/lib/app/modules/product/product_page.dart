@@ -53,10 +53,31 @@ class _ProductPageState extends ModularState<ProductPage, ProductController> {
                       children: <Widget>[
                         Image.network(product.image),
                         SizedBox(height: 20.0),
-                        Text(product.title),
-                        SizedBox(height: 20.0),
-                        Text(product.formattedPrice()),
-                        SizedBox(height: 20.0),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                          child: Column(
+                            children: <Widget>[
+                              Container(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Text(product.title),
+                                    Text(product.formattedPrice()),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: 20.0),
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                child: RaisedButton(
+                                  child: Text('Add to cart'),
+                                  onPressed: () {},
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),

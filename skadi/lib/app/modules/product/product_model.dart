@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:skadi/app/modules/shared/constants.dart';
 
 class ProductModel {
   final int id;
@@ -12,7 +13,7 @@ class ProductModel {
     return ProductModel(
       id: json['id'],
       title: json['title'],
-      image: json['image'],
+      image: '$BASE_URL${json['image']}',
       price: json['price'],
     );
   }
