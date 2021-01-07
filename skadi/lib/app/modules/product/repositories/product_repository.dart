@@ -9,7 +9,7 @@ class ProductRepository implements IProductRepository {
 
   ProductRepository(this.client);
 
-  Future<List<ProductModel>> fetchProducts() async {
+  Future<List<ProductModel>> fetch() async {
     try {
       final response = await client.get('/products');
 

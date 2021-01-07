@@ -7,9 +7,9 @@ part 'product_controller.g.dart';
 class ProductController = _ProductControllerBase with _$ProductController;
 
 abstract class _ProductControllerBase with Store {
-  final IProductRepository productRepository;
+  final IProductRepository repository;
 
-  _ProductControllerBase(this.productRepository);
+  _ProductControllerBase(this.repository);
 
   @observable
   List<ProductModel> products = <ProductModel>[];
@@ -20,7 +20,7 @@ abstract class _ProductControllerBase with Store {
   @action
   Future<void> fetchProducts() async {
     isLoading = true;
-    products = await productRepository.fetchProducts();
+    products = await repository.fetch();
     isLoading = false;
   }
 }

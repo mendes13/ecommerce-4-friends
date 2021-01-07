@@ -34,7 +34,7 @@ void main() {
   });
 
   testWidgets('ProductPage with empty products', (WidgetTester tester) async {
-    when(repository.fetchProducts()).thenAnswer((_) async => <ProductModel>[]);
+    when(repository.fetch()).thenAnswer((_) async => <ProductModel>[]);
 
     await tester.pumpWidget(buildTestableWidget(ProductPage()));
     await tester.pump();
@@ -45,7 +45,7 @@ void main() {
   testWidgets('ProductPage has products', (WidgetTester tester) async {
     HttpOverrides.global = null;
 
-    when(repository.fetchProducts()).thenAnswer((_) async => <ProductModel>[
+    when(repository.fetch()).thenAnswer((_) async => <ProductModel>[
           ProductModel(
             id: 1,
             title: "Test product",
@@ -62,7 +62,7 @@ void main() {
   });
 
   testWidgets('ProductPage check if has loading', (WidgetTester tester) async {
-    when(repository.fetchProducts()).thenAnswer((_) async => <ProductModel>[]);
+    when(repository.fetch()).thenAnswer((_) async => <ProductModel>[]);
 
     await tester.pumpWidget(buildTestableWidget(ProductPage()));
 

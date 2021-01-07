@@ -11,36 +11,36 @@ class MockProductRepository extends Mock implements IProductRepository {
 }
 
 void main() async {
-  ProductController productController;
+  ProductController controller;
   final repository = MockProductRepository();
 
   setUp(() {
-    productController = ProductController(repository);
+    controller = ProductController(repository);
   });
 
   group('ProductController Test', () {
     test("Check is instance of", () {
-      expect(productController, isInstanceOf<ProductController>());
+      expect(controller, isInstanceOf<ProductController>());
     });
 
     test("Get Products", () async {
-      expect(productController.products.length, equals(0));
+      expect(controller.products.length, equals(0));
 
-      when(repository.fetchProducts())
+      when(repository.fetch())
           .thenAnswer((_) async => repository.mockProducts());
-      await productController.fetchProducts();
+      await controller.fetchProducts();
 
-      expect(productController.products.length, greaterThanOrEqualTo(1));
+      expect(controller.products.length, greaterThanOrEqualTo(1));
     });
 
     test("Get Empty Products", () async {
-      expect(productController.products.length, equals(0));
+      expect(controller.products.length, equals(0));
 
-      when(repository.fetchProducts())
+      when(repository.fetch())
           .thenAnswer((_) async => repository.mockEmptyProducts());
-      await productController.fetchProducts();
+      await controller.fetchProducts();
 
-      expect(productController.products.length, equals(0));
+      expect(controller.products.length, equals(0));
     });
   });
 }
