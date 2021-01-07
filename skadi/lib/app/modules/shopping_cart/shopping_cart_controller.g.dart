@@ -9,39 +9,39 @@ part of 'shopping_cart_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$ShoppingCartController on _ShoppingCartControllerBase, Store {
-  final _$valueAtom = Atom(name: '_ShoppingCartControllerBase.value');
+  final _$itemsAtom = Atom(name: '_ShoppingCartControllerBase.items');
 
   @override
-  int get value {
-    _$valueAtom.reportRead();
-    return super.value;
+  ObservableList<ShoppingCartItemModel> get items {
+    _$itemsAtom.reportRead();
+    return super.items;
   }
 
   @override
-  set value(int value) {
-    _$valueAtom.reportWrite(value, super.value, () {
-      super.value = value;
+  set items(ObservableList<ShoppingCartItemModel> value) {
+    _$itemsAtom.reportWrite(value, super.items, () {
+      super.items = value;
     });
   }
 
-  final _$_ShoppingCartControllerBaseActionController =
-      ActionController(name: '_ShoppingCartControllerBase');
+  final _$addAsyncAction = AsyncAction('_ShoppingCartControllerBase.add');
 
   @override
-  void increment() {
-    final _$actionInfo = _$_ShoppingCartControllerBaseActionController
-        .startAction(name: '_ShoppingCartControllerBase.increment');
-    try {
-      return super.increment();
-    } finally {
-      _$_ShoppingCartControllerBaseActionController.endAction(_$actionInfo);
-    }
+  Future<void> add(ProductModel product, {int quantity = 1}) {
+    return _$addAsyncAction.run(() => super.add(product, quantity: quantity));
+  }
+
+  final _$fetchAsyncAction = AsyncAction('_ShoppingCartControllerBase.fetch');
+
+  @override
+  Future<void> fetch() {
+    return _$fetchAsyncAction.run(() => super.fetch());
   }
 
   @override
   String toString() {
     return '''
-value: ${value}
+items: ${items}
     ''';
   }
 }
