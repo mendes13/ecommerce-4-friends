@@ -1,8 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_modular/flutter_modular_test.dart';
-
-import 'package:skadi/app/modules/shopping_cart/shopping_cart_page.dart';
 
 void main() {
   testWidgets('ShoppingCartPage has title', (tester) async {

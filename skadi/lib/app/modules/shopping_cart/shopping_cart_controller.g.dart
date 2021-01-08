@@ -27,8 +27,9 @@ mixin _$ShoppingCartController on _ShoppingCartControllerBase, Store {
   final _$addAsyncAction = AsyncAction('_ShoppingCartControllerBase.add');
 
   @override
-  Future<void> add(ProductModel product, {int quantity = 1}) {
-    return _$addAsyncAction.run(() => super.add(product, quantity: quantity));
+  Future<void> add(ProductModel product, int index, {int quantity = 1}) {
+    return _$addAsyncAction
+        .run(() => super.add(product, index, quantity: quantity));
   }
 
   final _$fetchAsyncAction = AsyncAction('_ShoppingCartControllerBase.fetch');

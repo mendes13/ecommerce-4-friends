@@ -11,19 +11,25 @@ import 'package:skadi/app/modules/product/product_model.dart';
 import 'package:skadi/app/modules/product/product_module.dart';
 import 'package:skadi/app/modules/product/product_page.dart';
 import 'package:skadi/app/modules/product/repositories/interfaces/product_repository_interface.dart';
+import 'package:skadi/app/modules/shopping_cart/shopping_cart_controller.dart';
 
 class MockProductRepository extends Mock implements IProductRepository {}
 
+class MockShoppingCartController extends Mock
+    implements ShoppingCartController {}
+
 void main() {
-  MockProductRepository repository;
+  final repository = MockProductRepository();
+  final shoppingCartController = MockShoppingCartController();
 
   setUp(() {
-    repository = MockProductRepository();
     initModules([
       AppModule(),
       ProductModule()
     ], changeBinds: [
-      Bind((i) => ProductController(repository)),
+      Bind(
+        (i) => ProductController(repository, shoppingCartController),
+      ),
     ]);
   });
 

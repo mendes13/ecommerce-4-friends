@@ -47,10 +47,25 @@ void main() {
     test('add items in shopping cart', () async {
       expect(controller.items.length, equals(0));
 
-      await controller.add(repository.tProduct);
+      await controller.add(repository.tProduct, 0);
 
       expect(controller.items.length, greaterThanOrEqualTo(1));
       expect(controller.items.first.quantity, equals(1));
+    });
+
+    test('check if quantity sum of item in cart', () async {
+      expect(controller.items.length, equals(0));
+
+      final tProduct = repository.tProduct;
+
+      await controller.add(tProduct, 0);
+
+      expect(controller.items.length, equals(1));
+
+      await controller.add(tProduct, 0, quantity: 1);
+
+      expect(controller.items.length, equals(1));
+      expect(controller.items.first.quantity, 2);
     });
   });
 }

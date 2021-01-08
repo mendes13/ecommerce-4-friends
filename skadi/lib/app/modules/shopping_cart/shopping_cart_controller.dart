@@ -20,8 +20,16 @@ abstract class _ShoppingCartControllerBase with Store {
       <ShoppingCartItemModel>[].asObservable();
 
   @action
-  Future<void> add(ProductModel product, {int quantity = 1}) async {
-    items.add(ShoppingCartItemModel(product, quantity: quantity));
+  Future<void> add(ProductModel product, int index, {int quantity = 1}) async {
+    final bool indexExist = items.asMap().containsKey(index);
+
+    if (indexExist) {
+      items[index].quantity += quantity;
+    } else {
+      final item = ShoppingCartItemModel(product, quantity: quantity);
+      items.add(item);
+    }
+
     await save();
   }
 

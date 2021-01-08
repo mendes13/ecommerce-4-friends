@@ -8,7 +8,7 @@ class ShoppingCartModel {
 
 class ShoppingCartItemModel {
   final ProductModel product;
-  final int quantity;
+  int quantity;
 
   ShoppingCartItemModel(this.product, {this.quantity = 1});
 }
