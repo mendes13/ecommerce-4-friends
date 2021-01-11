@@ -25,11 +25,11 @@ class _ShoppingCartPageState
         children: <Widget>[
           Container(
             height: MediaQuery.of(context).size.height * .7,
-            child: ListView(
-              children: List.generate(
-                30,
-                (index) => ShoppingCartItemWidget(),
-              ),
+            child: ListView.builder(
+              itemCount: controller.items.length,
+              itemBuilder: (BuildContext _, int index) {
+                return ShoppingCartItemWidget(controller.items[index]);
+              },
             ),
           ),
           Container(

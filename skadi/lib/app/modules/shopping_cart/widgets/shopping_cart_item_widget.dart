@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:skadi/app/modules/shopping_cart/shopping_cart_model.dart';
 
 class ShoppingCartItemWidget extends StatelessWidget {
-  const ShoppingCartItemWidget({Key key}) : super(key: key);
+  final ShoppingCartItemModel shoppingCartItem;
+
+  const ShoppingCartItemWidget(this.shoppingCartItem);
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +14,7 @@ class ShoppingCartItemWidget extends StatelessWidget {
         children: <Widget>[
           Padding(
             padding: EdgeInsets.all(4.0),
-            child: Text('Test'),
+            child: Text(shoppingCartItem.product.title),
           ),
           Row(
             children: <Widget>[
@@ -19,7 +22,7 @@ class ShoppingCartItemWidget extends StatelessWidget {
                 icon: Icon(Icons.keyboard_arrow_left_outlined),
                 onPressed: () {},
               ),
-              Text('1'),
+              Text(shoppingCartItem.quantity.toString()),
               IconButton(
                 icon: Icon(Icons.keyboard_arrow_right_outlined),
                 onPressed: () {},
