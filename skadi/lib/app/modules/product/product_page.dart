@@ -27,7 +27,12 @@ class _ProductPageState extends ModularState<ProductPage, ProductController> {
       appBar: AppBar(
         title: Text(widget.title),
         actions: <Widget>[
-          CustomShoppingCartIcon(controller.shoppingCartController),
+          CustomShoppingCartIcon(
+            controller.shoppingCartController,
+            onPressed: () {
+              Navigator.pushNamed(context, '/shoppingcart');
+            },
+          ),
         ],
       ),
       body: Observer(

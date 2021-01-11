@@ -4,8 +4,9 @@ import 'package:skadi/app/modules/shopping_cart/shopping_cart_controller.dart';
 
 class CustomShoppingCartIcon extends StatelessWidget {
   final ShoppingCartController controller;
+  final VoidCallback onPressed;
 
-  const CustomShoppingCartIcon(this.controller);
+  const CustomShoppingCartIcon(this.controller, {this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class CustomShoppingCartIcon extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           IconButton(
-            onPressed: () {},
+            onPressed: onPressed,
             icon: Icon(Icons.shopping_cart_outlined),
           ),
           Positioned(
