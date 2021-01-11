@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:skadi/app/modules/shopping_cart/shopping_cart_controller.dart';
 
-class CustomShoppingCartIcon extends StatelessWidget {
+class CustomShoppingCartIconWidget extends StatelessWidget {
   final ShoppingCartController controller;
   final VoidCallback onPressed;
 
-  const CustomShoppingCartIcon(this.controller, {this.onPressed});
+  const CustomShoppingCartIconWidget(this.controller, {this.onPressed});
 
   @override
   Widget build(BuildContext context) {
