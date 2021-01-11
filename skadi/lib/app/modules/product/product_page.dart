@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:skadi/app/modules/product/product_model.dart';
+import 'package:skadi/app/modules/product/widgets/custom_shopping_cart_icon.dart';
 import 'package:skadi/app/modules/product/widgets/product_widget.dart';
 import 'product_controller.dart';
 
@@ -26,39 +27,7 @@ class _ProductPageState extends ModularState<ProductPage, ProductController> {
       appBar: AppBar(
         title: Text(widget.title),
         actions: <Widget>[
-          Container(
-            child: Stack(
-              children: <Widget>[
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.shopping_cart_outlined),
-                ),
-                Positioned(
-                  right: 5.0,
-                  bottom: 10.0,
-                  child: Container(
-                    width: 20.0,
-                    height: 20.0,
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                    child: Center(
-                      child: Observer(
-                        builder: (BuildContext _) {
-                          return Text(
-                            controller.shoppingCartController.getTotalQuantity
-                                .toString(),
-                            style: TextStyle(color: Colors.white),
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          CustomShoppingCartIcon(controller.shoppingCartController),
         ],
       ),
       body: Observer(
