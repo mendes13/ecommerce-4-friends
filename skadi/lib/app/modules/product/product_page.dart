@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:skadi/app/modules/product/product_model.dart';
+import 'package:skadi/app/modules/product/widgets/product_widget.dart';
 import 'product_controller.dart';
 
 class ProductPage extends StatefulWidget {
@@ -24,6 +25,41 @@ class _ProductPageState extends ModularState<ProductPage, ProductController> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: <Widget>[
+          Container(
+            child: Stack(
+              children: <Widget>[
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.shopping_cart_outlined),
+                ),
+                Positioned(
+                  right: 5.0,
+                  bottom: 10.0,
+                  child: Container(
+                    width: 20.0,
+                    height: 20.0,
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    child: Center(
+                      child: Observer(
+                        builder: (BuildContext _) {
+                          return Text(
+                            controller.shoppingCartController.getTotalQuantity
+                                .toString(),
+                            style: TextStyle(color: Colors.white),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
       body: Observer(
         builder: (BuildContext _) {
@@ -43,45 +79,9 @@ class _ProductPageState extends ModularState<ProductPage, ProductController> {
             itemCount: controller.products.length,
             itemBuilder: (BuildContext _, int index) {
               final ProductModel product = controller.products[index];
-              return Container(
-                child: Card(
-                  child: InkWell(
-                    onTap: () {
-                      // todo navigate to details?
-                    },
-                    child: Column(
-                      children: <Widget>[
-                        Image.network(product.image),
-                        SizedBox(height: 20.0),
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 10.0),
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Text(product.title),
-                                    Text(product.formattedPrice()),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(height: 20.0),
-                              Container(
-                                width: MediaQuery.of(context).size.width,
-                                child: RaisedButton(
-                                  child: Text('Add to cart'),
-                                  onPressed: () {},
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+              return ProductWidget(
+                product,
+                onPressed: () => controller.addShoppingCart(product, index),
               );
             },
           );
