@@ -23,14 +23,17 @@ abstract class _ShoppingCartControllerBase with Store {
   Future<void> add(ProductModel product, int index, {int quantity = 1}) async {
     final bool indexExist = items.asMap().containsKey(index);
 
+    final item = ShoppingCartItemModel(product, quantity: quantity);
+
     if (indexExist) {
-      items[index].quantity += quantity;
-    } else {
-      final item = ShoppingCartItemModel(product, quantity: quantity);
-      items.add(item);
+      final int oldQuantity = items[index].quantity;
+      items.removeAt(index);
+      item.quantity += oldQuantity;
     }
 
-    await save();
+    items.add(item);
+
+    //await save();
   }
 
   @action
@@ -38,6 +41,10 @@ abstract class _ShoppingCartControllerBase with Store {
     final itemsFromStorage = await repository.fetch();
     itemsFromStorage.forEach(items.add);
   }
+
+  @computed
+  int get getTotalQuantity => items.fold(
+      0, (previousValue, element) => previousValue + element.quantity);
 
   Future<void> save() async => await repository.save(ShoppingCartModel(items));
 }
