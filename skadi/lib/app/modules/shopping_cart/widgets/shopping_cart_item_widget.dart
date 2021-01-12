@@ -3,8 +3,9 @@ import 'package:skadi/app/modules/shopping_cart/shopping_cart_model.dart';
 
 class ShoppingCartItemWidget extends StatelessWidget {
   final ShoppingCartItemModel shoppingCartItem;
+  final VoidCallback removeItem;
 
-  const ShoppingCartItemWidget(this.shoppingCartItem);
+  const ShoppingCartItemWidget(this.shoppingCartItem, {this.removeItem});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class ShoppingCartItemWidget extends StatelessWidget {
           ),
           IconButton(
             icon: Icon(Icons.close, color: Colors.red),
-            onPressed: () {},
+            onPressed: removeItem,
           ),
         ],
       ),

@@ -67,5 +67,14 @@ void main() {
       expect(controller.items.length, equals(1));
       expect(controller.items.first.quantity, 2);
     });
+
+    test('remove item', () async {
+      final int index = 0;
+
+      await controller.add(repository.tProduct, index);
+      await controller.removeItem(index);
+
+      expect(controller.items.length, equals(0));
+    });
   });
 }

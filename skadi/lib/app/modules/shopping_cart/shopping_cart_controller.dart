@@ -37,6 +37,13 @@ abstract class _ShoppingCartControllerBase with Store {
   }
 
   @action
+  Future<void> removeItem(int index) async {
+    items.removeAt(index);
+
+    //await save();
+  }
+
+  @action
   Future<void> fetch() async {
     final itemsFromStorage = await repository.fetch();
     itemsFromStorage.forEach(items.add);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:skadi/app/modules/shopping_cart/widgets/shopping_cart_item_widget.dart';
 import 'shopping_cart_controller.dart';
@@ -26,10 +27,19 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
         children: <Widget>[
           Container(
             height: MediaQuery.of(context).size.height * .7,
-            child: ListView.builder(
-              itemCount: controller.items.length,
-              itemBuilder: (BuildContext _, int index) {
-                return ShoppingCartItemWidget(controller.items[index]);
+            child: Observer(
+              builder: (BuildContext _) {
+                return ListView.builder(
+                  itemCount: controller.items.length,
+                  itemBuilder: (BuildContext _, int index) {
+                    return ShoppingCartItemWidget(
+                      controller.items[index],
+                      removeItem: () {
+                        controller.removeItem(index);
+                      },
+                    );
+                  },
+                );
               },
             ),
           ),

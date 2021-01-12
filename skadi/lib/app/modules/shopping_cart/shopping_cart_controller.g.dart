@@ -40,6 +40,14 @@ mixin _$ShoppingCartController on _ShoppingCartControllerBase, Store {
         .run(() => super.add(product, index, quantity: quantity));
   }
 
+  final _$removeItemAsyncAction =
+      AsyncAction('_ShoppingCartControllerBase.removeItem');
+
+  @override
+  Future<void> removeItem(int index) {
+    return _$removeItemAsyncAction.run(() => super.removeItem(index));
+  }
+
   final _$fetchAsyncAction = AsyncAction('_ShoppingCartControllerBase.fetch');
 
   @override
