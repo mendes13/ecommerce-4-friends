@@ -69,8 +69,10 @@ void main() {
     });
 
     test('remove item', () async {
-      await controller.add(repository.tProduct);
-      await controller.removeItem(repository.tProduct);
+      final product = repository.tProduct;
+
+      await controller.add(product);
+      await controller.removeItem(product);
 
       expect(controller.items.length, equals(0));
     });
