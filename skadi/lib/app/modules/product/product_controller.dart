@@ -27,7 +27,7 @@ abstract class _ProductControllerBase with Store {
   }
 
   @action
-  Future<void> addShoppingCart(ProductModel product, int index) async {
-    await shoppingCartController.add(product, index);
+  Future<void> addShoppingCart(ProductModel product) async {
+    await shoppingCartController.add(product);
   }
 }

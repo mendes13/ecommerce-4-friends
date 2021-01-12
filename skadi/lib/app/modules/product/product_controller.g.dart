@@ -51,9 +51,9 @@ mixin _$ProductController on _ProductControllerBase, Store {
       AsyncAction('_ProductControllerBase.addShoppingCart');
 
   @override
-  Future<void> addShoppingCart(ProductModel product, int index) {
+  Future<void> addShoppingCart(ProductModel product) {
     return _$addShoppingCartAsyncAction
-        .run(() => super.addShoppingCart(product, index));
+        .run(() => super.addShoppingCart(product));
   }
 
   @override

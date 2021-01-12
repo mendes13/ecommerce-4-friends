@@ -34,8 +34,8 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                   itemBuilder: (BuildContext _, int index) {
                     return ShoppingCartItemWidget(
                       controller.items[index],
-                      removeItem: () {
-                        controller.removeItem(index);
+                      removeItem: () async {
+                        //await controller.removeItem(controller.items[index]);
                       },
                     );
                   },

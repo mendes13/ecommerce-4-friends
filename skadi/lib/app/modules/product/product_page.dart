@@ -55,7 +55,8 @@ class _ProductPageState extends ModularState<ProductPage, ProductController> {
               final ProductModel product = controller.products[index];
               return ProductWidget(
                 product,
-                onPressed: () => controller.addShoppingCart(product, index),
+                onPressed: () async =>
+                    await controller.addShoppingCart(product),
               );
             },
           );

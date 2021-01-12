@@ -20,25 +20,35 @@ abstract class _ShoppingCartControllerBase with Store {
       <ShoppingCartItemModel>[].asObservable();
 
   @action
-  Future<void> add(ProductModel product, int index, {int quantity = 1}) async {
-    final bool indexExist = items.asMap().containsKey(index);
+  Future<void> add(ProductModel product, {int quantity = 1}) async {
+    final ShoppingCartItemModel productInCart = items.singleWhere(
+        (element) => element.product.id == product.id,
+        orElse: () => null);
 
-    final item = ShoppingCartItemModel(product, quantity: quantity);
+    if (productInCart != null) {
+      final int index = items.indexOf(productInCart);
 
-    if (indexExist) {
-      final int oldQuantity = items[index].quantity;
+      final int newQuantity = productInCart.quantity + quantity;
+
       items.removeAt(index);
-      item.quantity += oldQuantity;
-    }
 
-    items.add(item);
+      final ShoppingCartItemModel item =
+          ShoppingCartItemModel(product, quantity: newQuantity);
+
+      items.add(item);
+    } else {
+      final ShoppingCartItemModel item =
+          ShoppingCartItemModel(product, quantity: quantity);
+
+      items.add(item);
+    }
 
     //await save();
   }
 
   @action
-  Future<void> removeItem(int index) async {
-    items.removeAt(index);
+  Future<void> removeItem(ProductModel product) async {
+    items.removeWhere((element) => element.product.id == product.id);
 
     //await save();
   }
