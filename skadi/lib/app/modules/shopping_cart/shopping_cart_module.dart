@@ -8,8 +8,10 @@ class ShoppingCartModule extends ChildModule {
 
   @override
   List<ModularRouter> get routers => [
-        ModularRouter(Modular.initialRoute,
-            child: (_, args) => ShoppingCartPage()),
+        ModularRouter(
+          Modular.initialRoute,
+          child: (_, args) => ShoppingCartPage(),
+        ),
       ];
 
   static Inject get to => Inject<ShoppingCartModule>.of();

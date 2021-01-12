@@ -12,8 +12,9 @@ class ShoppingCartPage extends StatefulWidget {
   _ShoppingCartPageState createState() => _ShoppingCartPageState();
 }
 
-class _ShoppingCartPageState
-    extends ModularState<ShoppingCartPage, ShoppingCartController> {
+class _ShoppingCartPageState extends State<ShoppingCartPage> {
+  final controller = Modular.get<ShoppingCartController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
