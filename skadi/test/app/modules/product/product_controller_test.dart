@@ -59,7 +59,7 @@ void main() async {
     test('add product in shoppingcart', () async {
       expect(controller.shoppingCartController.items.length, equals(0));
 
-      await controller.addShoppingCart(repository.tProduct, 0);
+      await controller.addShoppingCart(repository.tProduct);
 
       expect(controller.shoppingCartController.items.length,
           greaterThanOrEqualTo(1));
