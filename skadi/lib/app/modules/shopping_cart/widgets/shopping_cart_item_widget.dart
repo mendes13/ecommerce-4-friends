@@ -4,8 +4,10 @@ import 'package:skadi/app/modules/shopping_cart/shopping_cart_model.dart';
 class ShoppingCartItemWidget extends StatelessWidget {
   final ShoppingCartItemModel shoppingCartItem;
   final VoidCallback removeItem;
+  final VoidCallback quantityIncrement;
 
-  const ShoppingCartItemWidget(this.shoppingCartItem, {this.removeItem});
+  const ShoppingCartItemWidget(this.shoppingCartItem,
+      {this.removeItem, this.quantityIncrement});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class ShoppingCartItemWidget extends StatelessWidget {
               Text(shoppingCartItem.quantity.toString()),
               IconButton(
                 icon: Icon(Icons.keyboard_arrow_right_outlined),
-                onPressed: () {},
+                onPressed: quantityIncrement,
               ),
             ],
           ),

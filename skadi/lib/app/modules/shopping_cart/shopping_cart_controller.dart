@@ -63,5 +63,16 @@ abstract class _ShoppingCartControllerBase with Store {
   int get getTotalQuantity => items.fold(
       0, (previousValue, element) => previousValue + element.quantity);
 
+  @computed
+  int get getTotalValue {
+    int totalValue = 0;
+
+    items.forEach((item) {
+      totalValue += (item.product.price * item.quantity);
+    });
+
+    return totalValue;
+  }
+
   Future<void> save() async => await repository.save(ShoppingCartModel(items));
 }

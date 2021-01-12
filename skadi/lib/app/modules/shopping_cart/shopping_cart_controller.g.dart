@@ -16,6 +16,13 @@ mixin _$ShoppingCartController on _ShoppingCartControllerBase, Store {
           () => super.getTotalQuantity,
           name: '_ShoppingCartControllerBase.getTotalQuantity'))
       .value;
+  Computed<int> _$getTotalValueComputed;
+
+  @override
+  int get getTotalValue =>
+      (_$getTotalValueComputed ??= Computed<int>(() => super.getTotalValue,
+              name: '_ShoppingCartControllerBase.getTotalValue'))
+          .value;
 
   final _$itemsAtom = Atom(name: '_ShoppingCartControllerBase.items');
 
@@ -58,7 +65,8 @@ mixin _$ShoppingCartController on _ShoppingCartControllerBase, Store {
   String toString() {
     return '''
 items: ${items},
-getTotalQuantity: ${getTotalQuantity}
+getTotalQuantity: ${getTotalQuantity},
+getTotalValue: ${getTotalValue}
     ''';
   }
 }
