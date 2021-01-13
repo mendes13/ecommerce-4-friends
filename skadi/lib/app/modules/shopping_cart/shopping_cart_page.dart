@@ -38,6 +38,10 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                           quantityIncrement: () async {
                             await controller.add(entry.value.product);
                           },
+                          quantityDecrease: () async {
+                            await controller
+                                .removeQuantityFromProduct(entry.value.product);
+                          },
                           removeItem: () async {
                             await controller.removeItem(entry.value.product);
                           },

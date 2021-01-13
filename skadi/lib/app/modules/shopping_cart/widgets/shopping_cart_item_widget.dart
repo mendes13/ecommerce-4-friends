@@ -5,9 +5,14 @@ class ShoppingCartItemWidget extends StatelessWidget {
   final ShoppingCartItemModel shoppingCartItem;
   final VoidCallback removeItem;
   final VoidCallback quantityIncrement;
+  final VoidCallback quantityDecrease;
 
-  const ShoppingCartItemWidget(this.shoppingCartItem,
-      {this.removeItem, this.quantityIncrement});
+  const ShoppingCartItemWidget(
+    this.shoppingCartItem, {
+    this.removeItem,
+    this.quantityIncrement,
+    this.quantityDecrease,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +28,7 @@ class ShoppingCartItemWidget extends StatelessWidget {
             children: <Widget>[
               IconButton(
                 icon: Icon(Icons.keyboard_arrow_left_outlined),
-                onPressed: () {},
+                onPressed: quantityDecrease,
               ),
               Text(shoppingCartItem.quantity.toString()),
               IconButton(

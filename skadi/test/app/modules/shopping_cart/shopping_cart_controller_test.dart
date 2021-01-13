@@ -77,5 +77,14 @@ void main() {
 
       expect(controller.items.length, equals(0));
     });
+
+    test('remove quantity from item', () async {
+      final tProduct = repository.tProduct;
+
+      await controller.add(tProduct, quantity: 2);
+      await controller.removeQuantityFromProduct(tProduct, quantity: 1);
+
+      expect(controller.items[tProduct.id].quantity, equals(1));
+    });
   });
 }

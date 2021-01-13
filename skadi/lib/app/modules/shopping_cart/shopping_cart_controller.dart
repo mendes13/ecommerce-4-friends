@@ -23,7 +23,8 @@ abstract class _ShoppingCartControllerBase with Store {
   Future<void> add(ProductModel product, {int quantity = 1}) async {
     final item = items[product.id];
 
-    final ShoppingCartItemModel newItem = ShoppingCartItemModel(product);
+    final ShoppingCartItemModel newItem =
+        ShoppingCartItemModel(product, quantity: quantity);
 
     if (item != null) {
       newItem.quantity = item.quantity + quantity;
@@ -39,6 +40,18 @@ abstract class _ShoppingCartControllerBase with Store {
     items.remove(product.id);
 
     //await save();
+  }
+
+  @action
+  Future<void> removeQuantityFromProduct(ProductModel product,
+      {quantity = 1}) async {
+    final oldItem = items[product.id];
+
+    final int newQuantity = oldItem.quantity - quantity;
+
+    final newItem = ShoppingCartItemModel(product, quantity: newQuantity);
+
+    items[product.id] = newItem;
   }
 
   @action
