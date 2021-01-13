@@ -30,21 +30,20 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
             height: MediaQuery.of(context).size.height * .7,
             child: Observer(
               builder: (BuildContext _) {
-                return ListView.builder(
-                  itemCount: controller.items.length,
-                  itemBuilder: (BuildContext _, int index) {
-                    final ProductModel product =
-                        controller.items[index].product;
-                    return ShoppingCartItemWidget(
-                      controller.items[index],
-                      quantityIncrement: () async {
-                        await controller.add(product);
-                      },
-                      removeItem: () async {
-                        await controller.removeItem(product);
-                      },
-                    );
-                  },
+                return ListView(
+                  children: controller.items.entries
+                      .map(
+                        (entry) => ShoppingCartItemWidget(
+                          controller.items[entry.value.product.id],
+                          quantityIncrement: () async {
+                            await controller.add(entry.value.product);
+                          },
+                          removeItem: () async {
+                            await controller.removeItem(entry.value.product);
+                          },
+                        ),
+                      )
+                      .toList(),
                 );
               },
             ),

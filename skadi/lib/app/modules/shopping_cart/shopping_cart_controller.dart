@@ -16,39 +16,27 @@ abstract class _ShoppingCartControllerBase with Store {
   _ShoppingCartControllerBase(this.repository);
 
   @observable
-  ObservableList<ShoppingCartItemModel> items =
-      <ShoppingCartItemModel>[].asObservable();
+  ObservableMap<int, ShoppingCartItemModel> items =
+      <int, ShoppingCartItemModel>{}.asObservable();
 
   @action
   Future<void> add(ProductModel product, {int quantity = 1}) async {
-    final ShoppingCartItemModel productInCart = items.singleWhere(
-        (element) => element.product.id == product.id,
-        orElse: () => null);
+    final item = items[product.id];
 
-    if (productInCart != null) {
-      final int index = items.indexOf(productInCart);
+    final ShoppingCartItemModel newItem = ShoppingCartItemModel(product);
 
-      final int newQuantity = productInCart.quantity + quantity;
-
-      items.removeAt(index);
-
-      final ShoppingCartItemModel item =
-          ShoppingCartItemModel(product, quantity: newQuantity);
-
-      items.add(item);
-    } else {
-      final ShoppingCartItemModel item =
-          ShoppingCartItemModel(product, quantity: quantity);
-
-      items.add(item);
+    if (item != null) {
+      newItem.quantity = item.quantity + quantity;
     }
+
+    items[product.id] = newItem;
 
     //await save();
   }
 
   @action
   Future<void> removeItem(ProductModel product) async {
-    items.removeWhere((element) => element.product.id == product.id);
+    items.remove(product.id);
 
     //await save();
   }
@@ -56,19 +44,22 @@ abstract class _ShoppingCartControllerBase with Store {
   @action
   Future<void> fetch() async {
     final itemsFromStorage = await repository.fetch();
-    itemsFromStorage.forEach(items.add);
+    itemsFromStorage.forEach((item) => items[item.product.id] = item);
   }
 
   @computed
-  int get getTotalQuantity => items.fold(
-      0, (previousValue, element) => previousValue + element.quantity);
+  int get getTotalQuantity => items.entries.fold(
+      0, (previousValue, element) => previousValue + element.value.quantity);
 
   @computed
   int get getTotalValue {
     int totalValue = 0;
 
-    items.forEach((item) {
-      totalValue += (item.product.price * item.quantity);
+    items.entries.forEach((item) {
+      final int price = item.value.product.price;
+      final int quantity = item.value.quantity;
+
+      totalValue += (price * quantity);
     });
 
     return totalValue;

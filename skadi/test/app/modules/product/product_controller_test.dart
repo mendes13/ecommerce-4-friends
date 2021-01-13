@@ -59,11 +59,14 @@ void main() async {
     test('add product in shoppingcart', () async {
       expect(controller.shoppingCartController.items.length, equals(0));
 
-      await controller.addShoppingCart(repository.tProduct);
+      final product = repository.tProduct;
+
+      await controller.addShoppingCart(product);
 
       expect(controller.shoppingCartController.items.length,
           greaterThanOrEqualTo(1));
-      expect(controller.shoppingCartController.items.first.quantity, equals(1));
+      expect(controller.shoppingCartController.items[product.id].quantity,
+          equals(1));
     });
   });
 }

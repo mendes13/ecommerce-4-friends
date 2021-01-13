@@ -47,10 +47,11 @@ void main() {
     test('add items in shopping cart', () async {
       expect(controller.items.length, equals(0));
 
-      await controller.add(repository.tProduct);
+      final tProduct = repository.tProduct;
+      await controller.add(tProduct);
 
       expect(controller.items.length, greaterThanOrEqualTo(1));
-      expect(controller.items.first.quantity, equals(1));
+      expect(controller.items[tProduct.id].quantity, equals(1));
     });
 
     test('check if quantity sum of item in cart', () async {
@@ -65,7 +66,7 @@ void main() {
       await controller.add(tProduct, quantity: 1);
 
       expect(controller.items.length, equals(1));
-      expect(controller.items.first.quantity, 2);
+      expect(controller.items[tProduct.id].quantity, 2);
     });
 
     test('remove item', () async {

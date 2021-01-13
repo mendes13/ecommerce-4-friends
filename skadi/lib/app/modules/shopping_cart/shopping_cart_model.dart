@@ -1,7 +1,7 @@
 import 'package:skadi/app/modules/product/product_model.dart';
 
 class ShoppingCartModel {
-  final List<ShoppingCartItemModel> items;
+  final Map<int, ShoppingCartItemModel> items;
 
   ShoppingCartModel(this.items);
 }

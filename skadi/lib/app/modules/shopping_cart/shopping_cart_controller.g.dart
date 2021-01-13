@@ -27,13 +27,13 @@ mixin _$ShoppingCartController on _ShoppingCartControllerBase, Store {
   final _$itemsAtom = Atom(name: '_ShoppingCartControllerBase.items');
 
   @override
-  ObservableList<ShoppingCartItemModel> get items {
+  ObservableMap<int, ShoppingCartItemModel> get items {
     _$itemsAtom.reportRead();
     return super.items;
   }
 
   @override
-  set items(ObservableList<ShoppingCartItemModel> value) {
+  set items(ObservableMap<int, ShoppingCartItemModel> value) {
     _$itemsAtom.reportWrite(value, super.items, () {
       super.items = value;
     });
