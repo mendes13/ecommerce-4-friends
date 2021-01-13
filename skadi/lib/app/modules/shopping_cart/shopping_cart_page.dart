@@ -30,6 +30,12 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
             height: MediaQuery.of(context).size.height * .7,
             child: Observer(
               builder: (BuildContext _) {
+                if (controller.items.isEmpty) {
+                  return Center(
+                    child: Text('Empty products!'),
+                  );
+                }
+
                 return ListView(
                   children: controller.items.entries
                       .map(

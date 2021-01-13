@@ -49,9 +49,13 @@ abstract class _ShoppingCartControllerBase with Store {
 
     final int newQuantity = oldItem.quantity - quantity;
 
-    final newItem = ShoppingCartItemModel(product, quantity: newQuantity);
+    if (newQuantity > 0) {
+      final newItem = ShoppingCartItemModel(product, quantity: newQuantity);
 
-    items[product.id] = newItem;
+      items[product.id] = newItem;
+    } else {
+      items.remove(product.id);
+    }
   }
 
   @action
