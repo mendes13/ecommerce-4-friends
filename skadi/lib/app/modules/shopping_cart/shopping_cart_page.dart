@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:skadi/app/modules/product/product_model.dart';
 import 'package:skadi/app/modules/shopping_cart/widgets/shopping_cart_item_widget.dart';
 import 'shopping_cart_controller.dart';
 
