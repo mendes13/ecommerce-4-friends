@@ -40,7 +40,7 @@ void main() {
           statusCode: 200,
         ),
       );
-      final List<ProductModel> actual = await repository.fetchProducts();
+      final List<ProductModel> actual = await repository.fetch();
 
       expect(actual, isInstanceOf<List<ProductModel>>());
       expect(actual.length, greaterThanOrEqualTo(1));
@@ -50,7 +50,7 @@ void main() {
         () async {
       when(client.get('/products')).thenAnswer(
           (_) async => Response(data: {"data": []}, statusCode: 200));
-      final List<ProductModel> actual = await repository.fetchProducts();
+      final List<ProductModel> actual = await repository.fetch();
 
       expect(actual, isInstanceOf<List<ProductModel>>());
       expect(actual.length, greaterThanOrEqualTo(0));

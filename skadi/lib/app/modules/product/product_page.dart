@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:skadi/app/modules/product/product_model.dart';
+import 'package:skadi/app/modules/product/widgets/custom_shopping_cart_icon_widget.dart';
+import 'package:skadi/app/modules/product/widgets/product_widget.dart';
 import 'product_controller.dart';
 
 class ProductPage extends StatefulWidget {
@@ -24,6 +26,14 @@ class _ProductPageState extends ModularState<ProductPage, ProductController> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: <Widget>[
+          CustomShoppingCartIconWidget(
+            controller.shoppingCartController,
+            onPressed: () {
+              Navigator.pushNamed(context, '/shoppingcart');
+            },
+          ),
+        ],
       ),
       body: Observer(
         builder: (BuildContext _) {
@@ -43,24 +53,10 @@ class _ProductPageState extends ModularState<ProductPage, ProductController> {
             itemCount: controller.products.length,
             itemBuilder: (BuildContext _, int index) {
               final ProductModel product = controller.products[index];
-              return Container(
-                child: Card(
-                  child: InkWell(
-                    onTap: () {
-                      // todo navigate to details?
-                    },
-                    child: Column(
-                      children: <Widget>[
-                        Image.network(product.image),
-                        SizedBox(height: 20.0),
-                        Text(product.title),
-                        SizedBox(height: 20.0),
-                        Text(product.formattedPrice()),
-                        SizedBox(height: 20.0),
-                      ],
-                    ),
-                  ),
-                ),
+              return ProductWidget(
+                product,
+                onPressed: () async =>
+                    await controller.addShoppingCart(product),
               );
             },
           );

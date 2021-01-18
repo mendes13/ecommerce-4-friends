@@ -47,6 +47,15 @@ mixin _$ProductController on _ProductControllerBase, Store {
     return _$fetchProductsAsyncAction.run(() => super.fetchProducts());
   }
 
+  final _$addShoppingCartAsyncAction =
+      AsyncAction('_ProductControllerBase.addShoppingCart');
+
+  @override
+  Future<void> addShoppingCart(ProductModel product) {
+    return _$addShoppingCartAsyncAction
+        .run(() => super.addShoppingCart(product));
+  }
+
   @override
   String toString() {
     return '''

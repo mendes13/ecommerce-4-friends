@@ -14,8 +14,8 @@ defmodule NiflheimWeb.API.ProductView do
     %{
       id: product.id,
       title: product.title,
-      # TODO: centralize this logic somewhere
-      image: NiflheimWeb.Endpoint.url() <> Niflheim.ImageUploader.url({product.image, product})
+      image: Niflheim.ImageUploader.url({product.image, product}),
+      price: product.price
     }
   end
 end

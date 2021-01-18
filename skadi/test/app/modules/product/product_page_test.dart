@@ -11,19 +11,25 @@ import 'package:skadi/app/modules/product/product_model.dart';
 import 'package:skadi/app/modules/product/product_module.dart';
 import 'package:skadi/app/modules/product/product_page.dart';
 import 'package:skadi/app/modules/product/repositories/interfaces/product_repository_interface.dart';
+import 'package:skadi/app/modules/shopping_cart/shopping_cart_controller.dart';
 
 class MockProductRepository extends Mock implements IProductRepository {}
 
+class MockShoppingCartController extends Mock
+    implements ShoppingCartController {}
+
 void main() {
-  MockProductRepository repository;
+  final repository = MockProductRepository();
+  final shoppingCartController = MockShoppingCartController();
 
   setUp(() {
-    repository = MockProductRepository();
     initModules([
       AppModule(),
       ProductModule()
     ], changeBinds: [
-      Bind((i) => ProductController(repository)),
+      Bind(
+        (i) => ProductController(repository, shoppingCartController),
+      ),
     ]);
   });
 
@@ -34,7 +40,7 @@ void main() {
   });
 
   testWidgets('ProductPage with empty products', (WidgetTester tester) async {
-    when(repository.fetchProducts()).thenAnswer((_) async => <ProductModel>[]);
+    when(repository.fetch()).thenAnswer((_) async => <ProductModel>[]);
 
     await tester.pumpWidget(buildTestableWidget(ProductPage()));
     await tester.pump();
@@ -45,7 +51,7 @@ void main() {
   testWidgets('ProductPage has products', (WidgetTester tester) async {
     HttpOverrides.global = null;
 
-    when(repository.fetchProducts()).thenAnswer((_) async => <ProductModel>[
+    when(repository.fetch()).thenAnswer((_) async => <ProductModel>[
           ProductModel(
             id: 1,
             title: "Test product",
@@ -62,7 +68,7 @@ void main() {
   });
 
   testWidgets('ProductPage check if has loading', (WidgetTester tester) async {
-    when(repository.fetchProducts()).thenAnswer((_) async => <ProductModel>[]);
+    when(repository.fetch()).thenAnswer((_) async => <ProductModel>[]);
 
     await tester.pumpWidget(buildTestableWidget(ProductPage()));
 
