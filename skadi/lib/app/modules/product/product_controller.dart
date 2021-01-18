@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
 import 'package:skadi/app/modules/product/product_model.dart';
 import 'package:skadi/app/modules/product/repositories/interfaces/product_repository_interface.dart';
@@ -19,11 +20,19 @@ abstract class _ProductControllerBase with Store {
   @observable
   bool isLoading;
 
+  @observable
+  String error;
+
   @action
   Future<void> fetchProducts() async {
     isLoading = true;
-    products = await repository.fetch();
-    isLoading = false;
+    try {
+      products = await repository.fetch();
+    } on DioError catch (dioError) {
+      error = dioError.message;
+    } finally {
+      isLoading = false;
+    }
   }
 
   @action

@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:skadi/app/modules/product/product_model.dart';
 import 'package:skadi/app/modules/shared/custom_dio.dart';
 
@@ -10,15 +9,9 @@ class ProductRepository implements IProductRepository {
   ProductRepository(this.client);
 
   Future<List<ProductModel>> fetch() async {
-    try {
-      final response = await client.get('/products');
-
-      final List list = response.data['data'] ?? [];
-
-      return list.map((json) => ProductModel.fromJson(json)).toList();
-    } on DioError {
-      return [];
-    }
+    final response = await client.get('/products');
+    final List list = response.data['data'] ?? [];
+    return list.map((json) => ProductModel.fromJson(json)).toList();
   }
 
   //dispose will be called automatically

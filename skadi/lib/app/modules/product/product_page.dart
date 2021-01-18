@@ -43,6 +43,10 @@ class _ProductPageState extends ModularState<ProductPage, ProductController> {
             return Center(child: CircularProgressIndicator());
           }
 
+          if (controller.error != null) {
+            return Center(child: Text('Oops, ${controller.error}'));
+          }
+
           if (products.isEmpty) {
             return Center(child: Text('Sem produtos!'));
           }
