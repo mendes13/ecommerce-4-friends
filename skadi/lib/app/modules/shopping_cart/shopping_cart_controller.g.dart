@@ -54,6 +54,16 @@ mixin _$ShoppingCartController on _ShoppingCartControllerBase, Store {
     return _$removeItemAsyncAction.run(() => super.removeItem(product));
   }
 
+  final _$removeQuantityFromProductAsyncAction =
+      AsyncAction('_ShoppingCartControllerBase.removeQuantityFromProduct');
+
+  @override
+  Future<void> removeQuantityFromProduct(ProductModel product,
+      {dynamic quantity = 1}) {
+    return _$removeQuantityFromProductAsyncAction.run(
+        () => super.removeQuantityFromProduct(product, quantity: quantity));
+  }
+
   final _$fetchAsyncAction = AsyncAction('_ShoppingCartControllerBase.fetch');
 
   @override
