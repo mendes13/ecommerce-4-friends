@@ -2,11 +2,13 @@ defmodule Niflheim.Products.Product do
   use Ecto.Schema
   use Arc.Ecto.Schema
   import Ecto.Changeset
+  alias Niflheim.Orders
 
   schema "products" do
     field :title, :string
     field :price, :integer
     field :image, Niflheim.ImageUploader.Type
+    has_many :order_items, Orders.Item
 
     timestamps()
   end
