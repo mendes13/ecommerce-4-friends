@@ -2,32 +2,26 @@ import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:skadi/app/modules/product/product_model.dart';
-
 import 'package:skadi/app/modules/product/repositories/interfaces/product_repository_interface.dart';
 import 'package:skadi/app/modules/product/repositories/product_repository.dart';
-import 'package:skadi/app/modules/shared/custom_dio.dart';
 
-class MockClient extends Mock implements CustomDio {}
+import '../../shared/fakes/mock_custom_dio.dart';
+import '../fakes/mock_product_repository.dart';
 
 void main() {
-  IProductRepository repository;
-  MockClient client;
-
-  ProductModel tProductModel = ProductModel(
-    id: 1,
-    image: "image.jpg",
-    title: "Test Product",
-    price: 1000,
-  );
+  ProductRepository repository;
+  MockProductRepository mockProductRepository;
+  MockCustomDio client;
 
   setUp(() {
-    client = MockClient();
+    client = MockCustomDio();
+    mockProductRepository = MockProductRepository();
     repository = ProductRepository(client);
   });
 
   group('ProductRepository Test', () {
     test("First Test", () {
-      expect(repository, isInstanceOf<ProductRepository>());
+      expect(repository, isInstanceOf<IProductRepository>());
     });
 
     test('returns the Products if the http call completes successfully',
@@ -35,7 +29,7 @@ void main() {
       when(client.get('/products')).thenAnswer(
         (_) async => Response(
           data: {
-            'data': [tProductModel.toJson]
+            'data': [mockProductRepository.tProduct.toJson]
           },
           statusCode: 200,
         ),
