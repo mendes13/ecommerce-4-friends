@@ -2,20 +2,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
 import 'package:skadi/app/modules/product/product_controller.dart';
-import 'package:skadi/app/modules/product/product_model.dart';
-import 'package:skadi/app/modules/product/repositories/interfaces/product_repository_interface.dart';
-import 'package:skadi/app/modules/shopping_cart/repositories/interfaces/shopping_cart_repository_interface.dart';
 import 'package:skadi/app/modules/shopping_cart/shopping_cart_controller.dart';
 
-class MockProductRepository extends Mock implements IProductRepository {
-  final ProductModel tProduct = ProductModel();
-
-  List<ProductModel> mockProducts() => <ProductModel>[tProduct];
-  List<ProductModel> mockEmptyProducts() => <ProductModel>[];
-}
-
-class MockShoppingCartRepository extends Mock
-    implements IShoppingCartRepository {}
+import '../shopping_cart/fakes/mock_shopping_cart_repository.dart';
+import 'fakes/mock_product_repository.dart';
 
 void main() async {
   ProductController controller;
@@ -39,8 +29,7 @@ void main() async {
     test("Get Products", () async {
       expect(controller.products.length, equals(0));
 
-      when(repository.fetch())
-          .thenAnswer((_) async => repository.mockProducts());
+      when(repository.fetch()).thenAnswer((_) async => repository.fillData());
       await controller.fetchProducts();
 
       expect(controller.products.length, greaterThanOrEqualTo(1));
@@ -49,8 +38,7 @@ void main() async {
     test("Get Empty Products", () async {
       expect(controller.products.length, equals(0));
 
-      when(repository.fetch())
-          .thenAnswer((_) async => repository.mockEmptyProducts());
+      when(repository.fetch()).thenAnswer((_) async => repository.emptyData());
       await controller.fetchProducts();
 
       expect(controller.products.length, equals(0));

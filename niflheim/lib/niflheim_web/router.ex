@@ -23,6 +23,8 @@ defmodule NiflheimWeb.Router do
   scope "/api", NiflheimWeb.API, as: :api do
     pipe_through :api
     resources "/products", ProductController
+    resources "/orders", OrderController
+    put "/orders/:id/status", OrderStatusController, :update
   end
 
   # Other scopes may use custom stacks.
